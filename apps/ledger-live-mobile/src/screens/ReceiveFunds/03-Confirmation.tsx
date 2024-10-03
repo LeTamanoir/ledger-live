@@ -364,7 +364,7 @@ function ReceiveConfirmationInner({ navigation, route, account, parentAccount }:
               mr={4}
               onPress={onShare}
             >
-              <IconsLegacy.ShareMedium size={20} />
+              <Icons.ShareEssential />
             </StyledTouchableOpacity>
             <StyledTouchableOpacity
               p={4}
