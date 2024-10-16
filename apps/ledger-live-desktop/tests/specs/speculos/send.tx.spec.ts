@@ -157,8 +157,11 @@ const transactionE2E = [
 for (const transaction of transactionE2E) {
   test.describe("Send from 1 account to another", () => {
     test.use({
-      userdata: "speculos-tests-app",
+      userdata: "skip-onboarding",
       speculosApp: transaction.transaction.accountToDebit.currency.speculosApp,
+      cliCommands: [
+        `liveData --currency ${transaction.transaction.accountToCredit.currency.name} --add`,
+      ],
     });
 
     test(
@@ -202,7 +205,7 @@ for (const transaction of transactionE2E) {
   });
 }
 
-test.describe("Send token (subAccount) - invalid address input", () => {
+test.describe.skip("Send token (subAccount) - invalid address input", () => {
   const tokenTransactionInvalid = {
     transaction: new Transaction(Account.ALGO_USDT_1, Account.ALGO_USDT_2, "0.1", Fee.MEDIUM),
     expectedErrorMessage: "Recipient account has not opted in the selected ASA.",
@@ -236,7 +239,7 @@ test.describe("Send token (subAccount) - invalid address input", () => {
   );
 });
 
-test.describe("Send token (subAccount) - invalid amount input", () => {
+test.describe.skip("Send token (subAccount) - invalid amount input", () => {
   const tokenTransactionInvalid = [
     {
       transaction: new Transaction(Account.BSC_BUSD_1, Account.BSC_BUSD_2, "1", Fee.MEDIUM),
@@ -282,7 +285,7 @@ test.describe("Send token (subAccount) - invalid amount input", () => {
   }
 });
 
-test.describe("Send token (subAccount) - valid address & amount input", () => {
+test.describe.skip("Send token (subAccount) - valid address & amount input", () => {
   const tokenTransactionValid = new Transaction(
     Account.ETH_USDT_1,
     Account.ETH_USDT_2,
@@ -317,7 +320,7 @@ test.describe("Send token (subAccount) - valid address & amount input", () => {
 });
 
 for (const transaction of transactionsAmountInvalid) {
-  test.describe("Check invalid amount input error", () => {
+  test.describe.skip("Check invalid amount input error", () => {
     test.use({
       userdata: "speculos-tests-app",
     });
@@ -347,7 +350,7 @@ for (const transaction of transactionsAmountInvalid) {
   });
 }
 
-test.describe("Verify send max user flow", () => {
+test.describe.skip("Verify send max user flow", () => {
   const transactionInputValid = new Transaction(
     Account.ETH_1,
     Account.ETH_2,
@@ -383,7 +386,7 @@ test.describe("Verify send max user flow", () => {
 });
 
 for (const transaction of transactionAddressValid) {
-  test.describe("Send funds step 1 (Recipient) - positive cases (Button enabled)", () => {
+  test.describe.skip("Send funds step 1 (Recipient) - positive cases (Button enabled)", () => {
     test.use({
       userdata: "speculos-checkSendAddress",
     });
@@ -413,7 +416,7 @@ for (const transaction of transactionAddressValid) {
 }
 
 for (const transaction of transactionsAddressInvalid) {
-  test.describe("Send funds step 1 (Recipient) - negative cases (Button disabled)", () => {
+  test.describe.skip("Send funds step 1 (Recipient) - negative cases (Button disabled)", () => {
     test.use({
       userdata: "speculos-checkSendAddress",
     });

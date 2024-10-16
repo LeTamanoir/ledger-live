@@ -76,12 +76,16 @@ export class Account {
     Currency.DOGE,
     "Dogecoin 1",
     "DTWxYBoP319u1KBUFE9Z6FQxMKJRT1U7tQ",
+    undefined,
+    0,
   );
 
   static readonly DOGE_2 = new Account(
     Currency.DOGE,
     "Dogecoin 2",
     "DKbRbGP5spDCaRSGLjWGWZGbhE19nQ1LoK",
+    undefined,
+    1,
   );
 
   static readonly ETH_1 = new Account(
@@ -120,12 +124,16 @@ export class Account {
     Currency.sepETH,
     "Ethereum Sepolia 1",
     "0xB9051f83AC6e147924377BBEebd1Aa7aB43a67F6",
+    undefined,
+    0,
   );
 
   static readonly sep_ETH_2 = new Account(
     Currency.sepETH,
     "Ethereum Sepolia 2",
     "0x43047a5023D55a8658Fcb1c1Cea468311AdAA3Ad",
+    undefined,
+    1,
   );
 
   static readonly DOT_1 = new Account(
