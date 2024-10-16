@@ -105,7 +105,6 @@ test("Confirm Transaction modals @smoke", async ({ page }) => {
         },
       },
     });
-    await liveAppWebview.waitForLoaded();
 
     // Step Fees
     await expect(page.getByText("Max estimated fee")).toBeVisible();
@@ -163,7 +162,6 @@ test("Confirm Transaction modals @smoke", async ({ page }) => {
         },
       },
     });
-    await liveAppWebview.waitForLoaded();
 
     // Step Fees
     await expect(page.getByText("Max estimated fee")).toBeVisible();
@@ -224,7 +222,6 @@ test("Confirm Transaction modals @smoke", async ({ page }) => {
         },
       },
     });
-    await liveAppWebview.waitForLoaded();
 
     // Step Fees
     await expect(page.getByText("Max estimated fee")).toBeVisible();
