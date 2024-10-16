@@ -4,11 +4,11 @@ export const TransactionBroadcastError = createCustomErrorClass<{ url: string }>
   "TransactionBroadcastError",
 );
 
-interface CustomError extends Error {
+export interface TransactionBroadcastError extends Error {
   url?: string;
 }
 
-export const createTransactionBroadcastError = (error: Error): CustomError => {
+export const createTransactionBroadcastError = (error: Error): TransactionBroadcastError => {
   const { message } = error;
 
   if (
