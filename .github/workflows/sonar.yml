@@ -1,9 +1,18 @@
-name: Build
+name: "[Code Quality Check] Sonar Scan"
 
 on:
+  workflow_dispatch:
+    inputs:
+        ref:
+          description: "Which (branch or tag) you want to perform a sonar scan ?"
+          required: false
+          default: develop
   push:
     branches:
       - chore/sonar-setup
+  #schedule:
+    #- cron: "9 19 * * 1-5" # every working day at 7pm we will do a daily scan on develop
+
 
 permissions:
   id-token: write
@@ -34,13 +43,28 @@ jobs:
       - name: Install dependencies
         env:
           LANG: en_US.UTF-8
-        run: pnpm i --filter="ledger-live-desktop..." --filter="ledger-live" --filter="@ledgerhq/dummy-*-app..." --unsafe-perm
+        run: |
+          pnpm i --filter="ledger-live-desktop..." --filter="ledger-live" --filter="@ledgerhq/dummy-*-app..." --unsafe-perm
+          pnpm i --filter="live-mobile..." --filter="ledger-live" --no-frozen-lockfile --unsafe-perm
       - name: Build dependencies
         run: |
           pnpm build:lld:deps --api="http://127.0.0.1:${{ steps.caches.outputs.port }}" --token="${{ secrets.TURBOREPO_SERVER_TOKEN }}" --team="foo"
-      - name: Generate Unit test coverage for desktop
-        run: pnpm desktop test:jest:coverage
+          pnpm build:llm:deps --api="http://127.0.0.1:${{ steps.caches.outputs.port }}" --token="${{ secrets.TURBOREPO_SERVER_TOKEN }}" --team="foo"
+
+      - name: Generate Unit test coverage for LLD & LLM
+        run: |
+          pnpm desktop test:jest:coverage --coverageDirectory=desktop-coverage
+          pnpm mobile test:jest:coverage --coverageDirectory=mobile-coverage
+      - name: Cat test coverage files
+        run: |
+          cat apps/ledger-live-desktop/desktop-coverage/lcov.info
+          cat apps/ledger-live-desktop/desktop-coverage/sonar-test-execution-report.xml
+          cat apps/ledger-live-mobile/mobile-coverage/lcov.info
+          cat apps/ledger-live-mobile/mobile-coverage/sonar-test-execution-report.xml
       - uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -X
