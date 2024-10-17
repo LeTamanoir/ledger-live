@@ -286,9 +286,6 @@ importers:
       '@ledgerhq/coin-framework':
         specifier: workspace:^
         version: link:../../libs/coin-framework
-      '@ledgerhq/coin-hedera':
-        specifier: workspace:^
-        version: link:../../libs/coin-modules/coin-hedera
       '@ledgerhq/devices':
         specifier: workspace:*
         version: link:../../libs/ledgerjs/packages/devices
@@ -833,9 +830,6 @@ importers:
       '@ledgerhq/coin-framework':
         specifier: workspace:^
         version: link:../../libs/coin-framework
-      '@ledgerhq/coin-hedera':
-        specifier: workspace:^
-        version: link:../../libs/coin-modules/coin-hedera
       '@ledgerhq/devices':
         specifier: workspace:*
         version: link:../../libs/ledgerjs/packages/devices
