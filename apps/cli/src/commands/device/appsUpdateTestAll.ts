@@ -7,10 +7,14 @@ import { initState, reducer, runAll, getActionPlan } from "@ledgerhq/live-common
 import { listAppsUseCase } from "@ledgerhq/live-common/device/use-cases/listAppsUseCase";
 import { execWithTransport } from "@ledgerhq/live-common/device/use-cases/execWithTransport";
 import type { AppOp } from "@ledgerhq/live-common/apps/types";
-import { deviceOpt } from "../../scan";
+import { DeviceCommonOpts, deviceOpt } from "../../scan";
 
 const prettyActionPlan = (ops: AppOp[]) =>
   ops.map(op => (op.type === "install" ? "+" : "-") + op.name).join(", ");
+
+export type AppsUpdateTestAllJobOpts = DeviceCommonOpts & {
+  index: number;
+};
 
 export default {
   description: "test script to install and uninstall all apps",
@@ -21,13 +25,7 @@ export default {
       type: Number,
     },
   ],
-  job: ({
-    device,
-    index,
-  }: Partial<{
-    device: string;
-    index: number;
-  }>) =>
+  job: ({ device, index }: Partial<AppsUpdateTestAllJobOpts>) =>
     withDevice(device || "")(t => {
       const exec = execWithTransport(t);
       // $FlowFixMe
