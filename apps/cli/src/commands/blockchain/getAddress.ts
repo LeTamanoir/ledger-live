@@ -12,11 +12,12 @@ import {
 } from "../../scan";
 
 export type GetAddressJobOpts = CurrencyCommonOpts &
-  DeviceCommonOpts & {
+  DeviceCommonOpts &
+  Partial<{
     path?: string;
     derivationMode?: string;
     verify?: boolean;
-  };
+  }>;
 
 export default {
   description: "Get an address with the device on specific derivations (advanced)",
@@ -40,7 +41,7 @@ export default {
       desc: "also ask verification on device",
     },
   ],
-  job: (arg: Partial<GetAddressJobOpts>) =>
+  job: (arg: GetAddressJobOpts) =>
     inferCurrency(arg).pipe(
       mergeMap(currency => {
         if (!currency) {

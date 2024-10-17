@@ -12,9 +12,10 @@ import { DeviceCommonOpts, deviceOpt } from "../../scan";
 const prettyActionPlan = (ops: AppOp[]) =>
   ops.map(op => (op.type === "install" ? "+" : "-") + op.name).join(", ");
 
-export type AppsUpdateTestAllJobOpts = DeviceCommonOpts & {
-  index: number;
-};
+export type AppsUpdateTestAllJobOpts = DeviceCommonOpts &
+  Partial<{
+    index: number;
+  }>;
 
 export default {
   description: "test script to install and uninstall all apps",
@@ -25,7 +26,7 @@ export default {
       type: Number,
     },
   ],
-  job: ({ device, index }: Partial<AppsUpdateTestAllJobOpts>) =>
+  job: ({ device, index }: AppsUpdateTestAllJobOpts) =>
     withDevice(device || "")(t => {
       const exec = execWithTransport(t);
       // $FlowFixMe

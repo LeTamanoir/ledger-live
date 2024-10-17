@@ -39,9 +39,10 @@ const installScenario = (apps, transport, deviceInfo, scene) => {
   );
 };
 
-export type DevDeviceAppsScenarioJobOpts = DeviceCommonOpts & {
-  scenario: keyof typeof scenarios;
-};
+export type DevDeviceAppsScenarioJobOpts = DeviceCommonOpts &
+  Partial<{
+    scenario: keyof typeof scenarios;
+  }>;
 
 export default {
   description: "dev feature to enter into a specific device apps scenario",
@@ -54,7 +55,7 @@ export default {
       desc: scenariosValues,
     },
   ],
-  job: ({ device, scenario }: Partial<DevDeviceAppsScenarioJobOpts>) =>
+  job: ({ device, scenario }: DevDeviceAppsScenarioJobOpts) =>
     withDevice(device || "")(t => {
       const scene = scenarios[scenario || ""];
       if (!scene)

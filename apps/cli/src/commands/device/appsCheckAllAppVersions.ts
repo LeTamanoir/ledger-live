@@ -293,9 +293,10 @@ const wipeAll = (t, deviceInfo) =>
     }),
   );
 
-export type AppsCheckAllAppVersionsJobOpts = DeviceCommonOpts & {
-  memo: string;
-};
+export type AppsCheckAllAppVersionsJobOpts = DeviceCommonOpts &
+  Partial<{
+    memo: string;
+  }>;
 
 export default {
   description:
@@ -308,7 +309,7 @@ export default {
       desc: "a file to memorize the previously saved result so we don't run again from the start",
     },
   ],
-  job: ({ device, memo }: Partial<AppsCheckAllAppVersionsJobOpts>) =>
+  job: ({ device, memo }: AppsCheckAllAppVersionsJobOpts) =>
     withDevice(device || "")(t => {
       return from(
         Promise.all([getDeviceInfo(t), ManagerAPI.listApps()]).then(

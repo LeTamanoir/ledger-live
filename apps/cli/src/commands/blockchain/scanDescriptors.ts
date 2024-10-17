@@ -23,7 +23,7 @@ export type ScanDescriptorsJobOpts = CurrencyCommonOpts & DeviceCommonOpts;
 export default {
   description: "Synchronize accounts with blockchain",
   args: [deviceOpt, currencyOpt],
-  job: (opts: Partial<ScanDescriptorsJobOpts>) =>
+  job: (opts: ScanDescriptorsJobOpts) =>
     scanDescriptors(
       opts.device || "",
       requiredCurrency(findCryptoCurrencyByKeyword(opts.currency || "bitcoin")),

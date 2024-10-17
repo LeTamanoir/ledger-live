@@ -11,14 +11,15 @@ import { mapApplicationV2ToApp } from "@ledgerhq/live-common/apps/polyfill";
 import { DeviceCommonOpts, deviceOpt, inferManagerApp } from "../../scan";
 import type { DeviceInfo } from "@ledgerhq/types-live";
 
-export type AppJobOpts = DeviceCommonOpts & {
-  verbose: boolean;
-  install: string[];
-  uninstall: string[];
-  open: string;
-  quit: string;
-  debug: string;
-};
+export type AppJobOpts = DeviceCommonOpts &
+  Partial<{
+    verbose: boolean;
+    install: string[];
+    uninstall: string[];
+    open: string;
+    quit: string;
+    debug: string;
+  }>;
 
 export default {
   description: "Manage Ledger device's apps",
@@ -62,7 +63,7 @@ export default {
       desc: "close current application",
     },
   ],
-  job: ({ device, verbose, install, uninstall, open, quit, debug }: Partial<AppJobOpts>) =>
+  job: ({ device, verbose, install, uninstall, open, quit, debug }: AppJobOpts) =>
     withDevice(device || "")(t => {
       if (quit) return from(quitApp(t));
       if (open) return from(openApp(t, inferManagerApp(open)));
