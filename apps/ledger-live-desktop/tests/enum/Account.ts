@@ -8,6 +8,7 @@ export class Account {
     public readonly address: string,
     public readonly accountType?: AccountType,
     public readonly index?: number,
+    public readonly derivationPath?: string,
   ) {}
 
   static readonly BTC_NATIVE_SEGWIT_1 = new Account(
@@ -16,6 +17,7 @@ export class Account {
     "bc1qm6tw2c0u842qjs7g2n2c7ulh76f6xn4sk0dsyt",
     undefined,
     0,
+    "native_segwit",
   );
 
   static readonly BTC_NATIVE_SEGWIT_2 = new Account(
@@ -24,42 +26,61 @@ export class Account {
     "bc1q7ezsfc44adw2gyzqjmwhuh2e83uk8u5hrw590r",
     undefined,
     1,
+    "native_segwit",
   );
 
   static readonly BTC_LEGACY_1 = new Account(
     Currency.BTC,
     "Bitcoin Legacy 1",
     "1FMx2XwRHKXhbJcaekgPqN111wtRftkHyw",
+    undefined,
+    0,
+    "legacy",
   );
 
   static readonly BTC_LEGACY_2 = new Account(
     Currency.BTC,
     "Bitcoin Legacy 2",
     "1Nen8hLiZysV6TWi6o6hTBp6dtkRXrJyWh",
+    undefined,
+    1,
+    "legacy",
   );
 
   static readonly BTC_SEGWIT_1 = new Account(
     Currency.BTC,
     "Bitcoin Segwit 1",
     "3C7fQ47BiZuZN7V2WTgHLq4sqpb5BEp91i",
+    undefined,
+    0,
+    "segwit",
   );
 
   static readonly BTC_SEGWIT_2 = new Account(
     Currency.BTC,
     "Bitcoin Segwit 2",
     "3B5psxZfUkU6AzPJoirgPQS7dC9vv7ohcK",
+    undefined,
+    1,
+    "segwit",
   );
 
   static readonly BTC_TAPROOT_1 = new Account(
     Currency.BTC,
     "Bitcoin Taproot 1",
     "bc1pv4aytu7u4pk4nvelymxp65vndxqh4e3xsn0v7cguy6t98k5vynks5td23j",
+    undefined,
+    0,
+    "taproot",
   );
 
   static readonly BTC_TAPROOT_2 = new Account(
     Currency.BTC,
     "Bitcoin Taproot 2",
     "bc1pywrw64mkvpzxkje5fkcz7vafj03yyzyvx4vg8wy2klvq8wtyfe7sq2jgzd",
+    undefined,
+    1,
+    "taproot",
   );
 
   static readonly tBTC_1 = new Account(

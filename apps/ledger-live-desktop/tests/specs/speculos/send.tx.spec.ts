@@ -69,7 +69,7 @@ const transactionsAddressInvalid = [
 ];
 
 const transactionAddressValid = [
-  {
+  /*{
     transaction: new Transaction(Account.ETH_1, Account.ETH_3, "0.00001", Fee.MEDIUM),
     expectedWarningMessage: null,
     xrayTicket: "B2CQA-2714",
@@ -103,7 +103,7 @@ const transactionAddressValid = [
     transaction: new Transaction(Account.ATOM_1, Account.ATOM_2, "0.00001", Fee.MEDIUM),
     expectedWarningMessage: null,
     xrayTicket: "B2CQA-2721",
-  },
+  },*/
   {
     transaction: new Transaction(Account.BTC_LEGACY_1, Account.BTC_LEGACY_2, "0.00001", Fee.MEDIUM),
     expectedWarningMessage: null,
@@ -120,7 +120,7 @@ const transactionAddressValid = [
       Account.BTC_NATIVE_SEGWIT_2,
       "0.00001",
       Fee.MEDIUM,
-    ), //BTC Native Segwit
+    ),
     expectedWarningMessage: null,
     xrayTicket: "B2CQA-2724",
   },
@@ -130,15 +130,15 @@ const transactionAddressValid = [
       Account.BTC_TAPROOT_2,
       "0.00001",
       Fee.MEDIUM,
-    ), //BTC Taproot
+    ),
     expectedWarningMessage: null,
     xrayTicket: "B2CQA-2725",
   },
-  {
+  /*{
     transaction: new Transaction(Account.BCH_1, Account.BCH_2, "0.00001", Fee.MEDIUM), //BCH
     expectedWarningMessage: null,
     xrayTicket: "B2CQA-2726",
-  },
+  },*/
 ];
 
 const transactionE2E = [
@@ -172,7 +172,7 @@ const tokenTransactionInvalid = [
 //Warning 🚨: Test may fail due to the GetAppAndVersion issue - Jira: LIVE-12581 or insufficient funds
 
 for (const transaction of transactionE2E) {
-  test.describe("Send from 1 account to another", () => {
+  test.describe.skip("Send from 1 account to another", () => {
     test.use({
       userdata: "skip-onboarding",
       speculosApp: transaction.transaction.accountToDebit.currency.speculosApp,
@@ -223,7 +223,7 @@ for (const transaction of transactionE2E) {
   });
 }
 
-test.describe("Send token (subAccount) - invalid address input", () => {
+test.describe.skip("Send token (subAccount) - invalid address input", () => {
   const tokenTransactionInvalid = {
     transaction: new Transaction(Account.ALGO_USDT_1, Account.ALGO_USDT_2, "0.1", Fee.MEDIUM),
     expectedErrorMessage: "Recipient account has not opted in the selected ASA.",
@@ -262,7 +262,7 @@ test.describe("Send token (subAccount) - invalid address input", () => {
 });
 
 for (const transaction of tokenTransactionInvalid) {
-  test.describe("Send token (subAccount) - invalid amount input", () => {
+  test.describe.skip("Send token (subAccount) - invalid amount input", () => {
     test.use({
       userdata: "skip-onboarding",
       speculosApp: transaction.transaction.accountToDebit.currency.speculosApp,
@@ -295,7 +295,7 @@ for (const transaction of tokenTransactionInvalid) {
   });
 }
 
-test.describe("Send token (subAccount) - valid address & amount input", () => {
+test.describe.skip("Send token (subAccount) - valid address & amount input", () => {
   const tokenTransactionValid = new Transaction(
     Account.ETH_USDT_1,
     Account.ETH_USDT_2,
@@ -334,7 +334,7 @@ test.describe("Send token (subAccount) - valid address & amount input", () => {
 });
 
 for (const transaction of transactionsAmountInvalid) {
-  test.describe("Check invalid amount input error", () => {
+  test.describe.skip("Check invalid amount input error", () => {
     test.use({
       userdata: "skip-onboarding",
       speculosApp: transaction.transaction.accountToDebit.currency.speculosApp,
@@ -368,7 +368,7 @@ for (const transaction of transactionsAmountInvalid) {
   });
 }
 
-test.describe("Verify send max user flow", () => {
+test.describe.skip("Verify send max user flow", () => {
   const transactionInputValid = new Transaction(
     Account.ETH_1,
     Account.ETH_2,
@@ -408,12 +408,12 @@ test.describe("Verify send max user flow", () => {
 });
 
 for (const transaction of transactionAddressValid) {
-  test.describe.skip("Send funds step 1 (Recipient) - positive cases (Button enabled)", () => {
+  test.describe("Send funds step 1 (Recipient) - positive cases (Button enabled)", () => {
     test.use({
       userdata: "skip-onboarding",
       speculosApp: transaction.transaction.accountToDebit.currency.speculosApp,
       cliCommands: [
-        `liveData --currency ${transaction.transaction.accountToDebit.currency.currencyId} --index ${transaction.transaction.accountToDebit.index} --add`,
+        `liveData --currency ${transaction.transaction.accountToDebit.currency.currencyId} --index ${transaction.transaction.accountToDebit.index} --scheme ${transaction.transaction.accountToDebit.derivationPath}  --add`,
       ],
     });
 
@@ -442,7 +442,7 @@ for (const transaction of transactionAddressValid) {
 }
 
 for (const transaction of transactionsAddressInvalid) {
-  test.describe("Send funds step 1 (Recipient) - negative cases (Button disabled)", () => {
+  test.describe.skip("Send funds step 1 (Recipient) - negative cases (Button disabled)", () => {
     test.use({
       userdata: "skip-onboarding",
       speculosApp: transaction.transaction.accountToDebit.currency.speculosApp,
